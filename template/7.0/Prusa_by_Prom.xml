@@ -37,7 +37,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.api.version</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information about printer.</description>
                     <preprocessing>
@@ -184,7 +184,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.hostname</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information about printer.</description>
                     <preprocessing>
@@ -219,7 +219,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.material.info.filament</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information about loaded filament. Returns 0 if there is no loaded filament</description>
                     <preprocessing>
@@ -229,6 +229,12 @@ https://github.com/pstrobl96/prusa_exporter
                                 <parameter>prusa_material_info</parameter>
                                 <parameter>label</parameter>
                                 <parameter>printer_filament</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>1h</parameter>
                             </parameters>
                         </step>
                     </preprocessing>
@@ -259,6 +265,12 @@ https://github.com/pstrobl96/prusa_exporter
                                 <parameter>prusa_material_info{printer_filament=&quot;PLA&quot;}</parameter>
                                 <parameter>value</parameter>
                                 <parameter/>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>1h</parameter>
                             </parameters>
                         </step>
                     </preprocessing>
@@ -315,7 +327,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.model</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information status of printer.</description>
                     <preprocessing>
@@ -350,7 +362,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.name</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information status of printer.</description>
                     <preprocessing>
@@ -488,6 +500,12 @@ https://github.com/pstrobl96/prusa_exporter
                                 <parameter>100</parameter>
                             </parameters>
                         </step>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>1h</parameter>
+                            </parameters>
+                        </step>
                     </preprocessing>
                     <master_item>
                         <key>prusa_exporter.get</key>
@@ -521,6 +539,12 @@ https://github.com/pstrobl96/prusa_exporter
                             <type>MULTIPLIER</type>
                             <parameters>
                                 <parameter>100</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>1h</parameter>
                             </parameters>
                         </step>
                     </preprocessing>
@@ -568,7 +592,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.printer.address</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information about printer.</description>
                     <preprocessing>
@@ -603,7 +627,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.printer.job.name</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <preprocessing>
                         <step>
@@ -655,6 +679,12 @@ https://github.com/pstrobl96/prusa_exporter
                                 <parameter>100</parameter>
                             </parameters>
                         </step>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>1h</parameter>
+                            </parameters>
+                        </step>
                     </preprocessing>
                     <master_item>
                         <key>prusa_exporter.get</key>
@@ -672,7 +702,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.serial.number</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information about printer.</description>
                     <preprocessing>
@@ -707,7 +737,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.server.version</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information about printer.</description>
                     <preprocessing>
@@ -772,7 +802,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <type>DEPENDENT</type>
                     <key>prusa.status.state</key>
                     <delay>0</delay>
-                    <value_type>TEXT</value_type>
+                    <value_type>CHAR</value_type>
                     <trends>0</trends>
                     <description>Returns information status of printer.</description>
                     <preprocessing>
@@ -782,6 +812,12 @@ https://github.com/pstrobl96/prusa_exporter
                                 <parameter>prusa_status_info</parameter>
                                 <parameter>label</parameter>
                                 <parameter>printer_state</parameter>
+                            </parameters>
+                        </step>
+                        <step>
+                            <type>DISCARD_UNCHANGED_HEARTBEAT</type>
+                            <parameters>
+                                <parameter>10m</parameter>
                             </parameters>
                         </step>
                     </preprocessing>
@@ -803,7 +839,7 @@ https://github.com/pstrobl96/prusa_exporter
                     <delay>0</delay>
                     <description>Return information about online printers. If printer is registered as offline then returned value is 0.</description>
                     <valuemap>
-                        <name>Status printer</name>
+                        <name>Status up</name>
                     </valuemap>
                     <preprocessing>
                         <step>
@@ -1473,6 +1509,60 @@ https://github.com/pstrobl96/prusa_exporter
                 <valuemap>
                     <uuid>8bae740bc9d3491aa9d82f45b2132d27</uuid>
                     <name>Status printer</name>
+                    <mappings>
+                        <mapping>
+                            <value>1</value>
+                            <newvalue>Operational</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>4</value>
+                            <newvalue>Printing</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>2</value>
+                            <newvalue>Prepared</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>3</value>
+                            <newvalue>Paused</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>5</value>
+                            <newvalue>Cancelling</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>6</value>
+                            <newvalue>Pausing</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>7</value>
+                            <newvalue>Error</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>8</value>
+                            <newvalue>SdReady</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>9</value>
+                            <newvalue>ClosedOrError</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>10</value>
+                            <newvalue>Ready</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>11</value>
+                            <newvalue>Busy</newvalue>
+                        </mapping>
+                        <mapping>
+                            <value>12</value>
+                            <newvalue>Finished</newvalue>
+                        </mapping>
+                    </mappings>
+                </valuemap>
+                <valuemap>
+                    <uuid>f22e2cbf7bdb4e509a53d384a18a0656</uuid>
+                    <name>Status up</name>
                     <mappings>
                         <mapping>
                             <value>1</value>

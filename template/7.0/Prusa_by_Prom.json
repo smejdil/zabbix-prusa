@@ -29,7 +29,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.api.version",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information about printer.",
                         "preprocessing": [
@@ -176,7 +176,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.hostname",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information about printer.",
                         "preprocessing": [
@@ -211,7 +211,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.material.info.filament",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information about loaded filament. Returns 0 if there is no loaded filament",
                         "preprocessing": [
@@ -221,6 +221,12 @@
                                     "prusa_material_info",
                                     "label",
                                     "printer_filament"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
                                 ]
                             }
                         ],
@@ -251,6 +257,12 @@
                                     "prusa_material_info{printer_filament=\"PLA\"}",
                                     "value",
                                     ""
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
                                 ]
                             }
                         ],
@@ -307,7 +319,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.model",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information status of printer.",
                         "preprocessing": [
@@ -342,7 +354,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.name",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information status of printer.",
                         "preprocessing": [
@@ -479,6 +491,12 @@
                                 "parameters": [
                                     "100"
                                 ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
+                                ]
                             }
                         ],
                         "master_item": {
@@ -513,6 +531,12 @@
                                 "type": "MULTIPLIER",
                                 "parameters": [
                                     "100"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
                                 ]
                             }
                         ],
@@ -560,7 +584,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.printer.address",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information about printer.",
                         "preprocessing": [
@@ -595,7 +619,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.printer.job.name",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "preprocessing": [
                             {
@@ -646,6 +670,12 @@
                                 "parameters": [
                                     "100"
                                 ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
+                                ]
                             }
                         ],
                         "master_item": {
@@ -664,7 +694,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.serial.number",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information about printer.",
                         "preprocessing": [
@@ -699,7 +729,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.server.version",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information about printer.",
                         "preprocessing": [
@@ -764,7 +794,7 @@
                         "type": "DEPENDENT",
                         "key": "prusa.status.state",
                         "delay": "0",
-                        "value_type": "TEXT",
+                        "value_type": "CHAR",
                         "trends": "0",
                         "description": "Returns information status of printer.",
                         "preprocessing": [
@@ -774,6 +804,12 @@
                                     "prusa_status_info",
                                     "label",
                                     "printer_state"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "10m"
                                 ]
                             }
                         ],
@@ -795,7 +831,7 @@
                         "delay": "0",
                         "description": "Return information about online printers. If printer is registered as offline then returned value is 0.",
                         "valuemap": {
-                            "name": "Status printer"
+                            "name": "Status up"
                         },
                         "preprocessing": [
                             {
@@ -1465,6 +1501,60 @@
                     {
                         "uuid": "8bae740bc9d3491aa9d82f45b2132d27",
                         "name": "Status printer",
+                        "mappings": [
+                            {
+                                "value": "1",
+                                "newvalue": "Operational"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "Printing"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "Prepared"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "Paused"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "Cancelling"
+                            },
+                            {
+                                "value": "6",
+                                "newvalue": "Pausing"
+                            },
+                            {
+                                "value": "7",
+                                "newvalue": "Error"
+                            },
+                            {
+                                "value": "8",
+                                "newvalue": "SdReady"
+                            },
+                            {
+                                "value": "9",
+                                "newvalue": "ClosedOrError"
+                            },
+                            {
+                                "value": "10",
+                                "newvalue": "Ready"
+                            },
+                            {
+                                "value": "11",
+                                "newvalue": "Busy"
+                            },
+                            {
+                                "value": "12",
+                                "newvalue": "Finished"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "f22e2cbf7bdb4e509a53d384a18a0656",
+                        "name": "Status up",
                         "mappings": [
                             {
                                 "value": "1",
