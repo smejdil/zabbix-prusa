@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  exporter:
+    build: .
+    container_name: exporter
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./prusa.yml
+        target: /app/prusa.yml
+    ports:
+      - "10009:10009"
+      - 8514:8514/udp
+    command: 
+      - "--config.file=/app/prusa.yml"
+      - "--log.level=info"
+      - "--prusalink.scrape-timeout=5"

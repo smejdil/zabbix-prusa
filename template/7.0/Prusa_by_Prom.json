@@ -1,0 +1,1560 @@
+{
+    "zabbix_export": {
+        "version": "7.0",
+        "template_groups": [
+            {
+                "uuid": "846977d1dfed4968bc5f8bdb363285bc",
+                "name": "Templates/Operating systems"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "cf7ff3a52815432796abc5ca46a66a5f",
+                "template": "Prusa by Prom",
+                "name": "Prusa by Prom",
+                "description": "This template collects Prusa metrics from  prusa_exporter.\n\nSetup:\n\n1. Set up the prusa_exporter according to the official documentation:\nhttps://github.com/pstrobl96/prusa_exporter\n\n\n2. Set the hostname or IP address of the prusa_exporter host in the '{$PRUSA_EXPORTER_HOST}' macro. You can also change the Prometheus endpoint port in the '{$PRUSA_EXPORTER_PORT}' macro if necessary.",
+                "vendor": {
+                    "name": "Open-Tech",
+                    "version": "7.0-0"
+                },
+                "groups": [
+                    {
+                        "name": "Templates/Operating systems"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "1be9f51b728c4aa6b099a6ae820ee2f2",
+                        "name": "API version",
+                        "type": "DEPENDENT",
+                        "key": "prusa.api.version",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information about printer.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_info",
+                                    "label",
+                                    "api_version"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "0d294172d2b84c888549ec4ec52ca84e",
+                        "name": "Bed target temperature",
+                        "type": "DEPENDENT",
+                        "key": "prusa.bed.target.temp",
+                        "delay": "0",
+                        "units": "\u02daC",
+                        "description": "Target temp of printer in Celsius",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_temperature_target_celsius{printer_heated_element=\"bed\"}",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "8a3b77f2a96a4db6a66a842c70199623",
+                        "name": "Bed temperature",
+                        "type": "DEPENDENT",
+                        "key": "prusa.bed.temp",
+                        "delay": "0",
+                        "units": "\u02daC",
+                        "description": "Current temp of printer in Celsius",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_temperature_celsius{printer_heated_element=\"bed\"}",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "162cdba9c97f468597f7b525defaef99",
+                        "name": "Extruder fan speed",
+                        "type": "DEPENDENT",
+                        "key": "prusa.fan.speed.hotend",
+                        "delay": "0",
+                        "units": "rpm",
+                        "description": "Returns information about speed of hotend fan in rpm.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_fan_speed_rpm{fan=\"hotend\"}",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "69ef9eb379264ad89701cf2f8b956726",
+                        "name": "Fan speed",
+                        "type": "DEPENDENT",
+                        "key": "prusa.fan.speed.print",
+                        "delay": "0",
+                        "units": "rpm",
+                        "description": "Returns information about speed of hotend fan in rpm.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_fan_speed_rpm{fan=\"print\"}",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "05bb00b33a894cf1acbe3c82022364af",
+                        "name": "Hostname",
+                        "type": "DEPENDENT",
+                        "key": "prusa.hostname",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information about printer.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_info",
+                                    "label",
+                                    "printer_hostname"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1d"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "b51bfc95d4e242618e912727954993c5",
+                        "name": "Filament",
+                        "type": "DEPENDENT",
+                        "key": "prusa.material.info.filament",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information about loaded filament. Returns 0 if there is no loaded filament",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_material_info",
+                                    "label",
+                                    "printer_filament"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "e68fe5c915b840ad8f513829f530ddcd",
+                        "name": "Filament PLA status",
+                        "type": "DEPENDENT",
+                        "key": "prusa.material.info.pla",
+                        "delay": "0",
+                        "description": "Returns information about loaded filament. Returns 0 if there is no loaded filament",
+                        "valuemap": {
+                            "name": "Filament PLA Load"
+                        },
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_material_info{printer_filament=\"PLA\"}",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "ee05abc4334d4c88a0f17601852e58e6",
+                        "name": "MMU",
+                        "type": "DEPENDENT",
+                        "key": "prusa.mmu",
+                        "delay": "0",
+                        "trends": "0",
+                        "description": "Returns information if MMU is enabled.",
+                        "valuemap": {
+                            "name": "Status mmu"
+                        },
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_mmu",
+                                    "value",
+                                    ""
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "358923d4a962493b85d647ec3de18de5",
+                        "name": "Printer model",
+                        "type": "DEPENDENT",
+                        "key": "prusa.model",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information status of printer.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_status_info",
+                                    "label",
+                                    "printer_model"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1d"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "c818b1cea4a343559d09934aaab268cb",
+                        "name": "Printer name",
+                        "type": "DEPENDENT",
+                        "key": "prusa.name",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information status of printer.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_status_info",
+                                    "label",
+                                    "printer_name"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1d"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "25eddff97d1c4cd9bb807040f48762c6",
+                        "name": "Nozzle size meters",
+                        "type": "DEPENDENT",
+                        "key": "prusa.nozzle.size.meters",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "mm",
+                        "description": "Returns information about selected nozzle size.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_nozzle_size_meters",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "eedef40b39984238a06353635ba5cd3d",
+                        "name": "Nozzle target temperature",
+                        "type": "DEPENDENT",
+                        "key": "prusa.nozzle.target.temp",
+                        "delay": "0",
+                        "units": "\u02daC",
+                        "description": "Target temp of printer in Celsius",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_temperature_target_celsius{printer_heated_element=\"tool0\"}",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "b709dd32a70440e399d716e782eef65f",
+                        "name": "Nozzle temperature",
+                        "type": "DEPENDENT",
+                        "key": "prusa.nozzle.temp",
+                        "delay": "0",
+                        "units": "\u02daC",
+                        "description": "Current temp of printer in Celsius",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_temperature_celsius{printer_heated_element=\"tool0\"}",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "182aa3bf9bdf46628d77896ff4d3cd62",
+                        "name": "Flow ratio",
+                        "type": "DEPENDENT",
+                        "key": "prusa.print.flow.ratio",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "%",
+                        "description": "Returns information about of filament flow in ratio (0.0 - 1.0).",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_print_flow_ratio",
+                                    "value",
+                                    ""
+                                ]
+                            },
+                            {
+                                "type": "MULTIPLIER",
+                                "parameters": [
+                                    "100"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "e53c0cc75fba46b3afde3c5bc3d2ddd6",
+                        "name": "Speed ratio",
+                        "type": "DEPENDENT",
+                        "key": "prusa.print.speed.ratio",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "%",
+                        "description": "Current setting of printer speed in values from 0.0 - 1.0",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_print_speed_ratio",
+                                    "value",
+                                    ""
+                                ]
+                            },
+                            {
+                                "type": "MULTIPLIER",
+                                "parameters": [
+                                    "100"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3308922d879b4690addd158a8b117e8e",
+                        "name": "Print time",
+                        "type": "DEPENDENT",
+                        "key": "prusa.print.time",
+                        "delay": "0",
+                        "units": "s",
+                        "description": "Returns information about current print time.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_print_time_seconds",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "1fdf7c58c5d24895a342adc2709d68d3",
+                        "name": "Address",
+                        "type": "DEPENDENT",
+                        "key": "prusa.printer.address",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information about printer.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_info",
+                                    "label",
+                                    "printer_address"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "1331fad9149e4f51999725bd39e9919c",
+                        "name": "Job name",
+                        "type": "DEPENDENT",
+                        "key": "prusa.printer.job.name",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_status_info",
+                                    "label",
+                                    "printer_job_name"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "10m"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3954fd2f40c7489ba53f76352c296826",
+                        "name": "Progress ratio",
+                        "type": "DEPENDENT",
+                        "key": "prusa.printing.progress.ratio",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "%",
+                        "description": "Returns information about completion of current print in ratio (0.0-1.0)",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_printing_progress_ratio",
+                                    "value",
+                                    ""
+                                ]
+                            },
+                            {
+                                "type": "MULTIPLIER",
+                                "parameters": [
+                                    "100"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "7b55bfcbeca34eb789a52a1cedd407fe",
+                        "name": "Serial number",
+                        "type": "DEPENDENT",
+                        "key": "prusa.serial.number",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information about printer.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_info",
+                                    "label",
+                                    "serial_number"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1d"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "69a73fecff0c4f2894971db50726afed",
+                        "name": "Server version",
+                        "type": "DEPENDENT",
+                        "key": "prusa.server.version",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information about printer.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_info",
+                                    "label",
+                                    "server_version"
+                                ]
+                            },
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "1h"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "0a97b5c8b7104add88fbd9deebee92fc",
+                        "name": "Status info",
+                        "type": "DEPENDENT",
+                        "key": "prusa.status.info",
+                        "delay": "0",
+                        "description": "Returns information status of printer.",
+                        "valuemap": {
+                            "name": "Status printer"
+                        },
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_status_info",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "01c540727ed7465286d2aece18e78e13",
+                        "name": "Printer state",
+                        "type": "DEPENDENT",
+                        "key": "prusa.status.state",
+                        "delay": "0",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "description": "Returns information status of printer.",
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_status_info",
+                                    "label",
+                                    "printer_state"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "ece42556de8242559992a51adf58466c",
+                        "name": "Printer up",
+                        "type": "DEPENDENT",
+                        "key": "prusa.up",
+                        "delay": "0",
+                        "description": "Return information about online printers. If printer is registered as offline then returned value is 0.",
+                        "valuemap": {
+                            "name": "Status printer"
+                        },
+                        "preprocessing": [
+                            {
+                                "type": "PROMETHEUS_PATTERN",
+                                "parameters": [
+                                    "prusa_up",
+                                    "value",
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "prusa_exporter.get"
+                        },
+                        "tags": [
+                            {
+                                "tag": "target",
+                                "value": "prusa"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "2b2c55df3b2d466b9eede0ca8b785965",
+                        "name": "Get prusa_exporter metrics",
+                        "type": "HTTP_AGENT",
+                        "key": "prusa_exporter.get",
+                        "history": "1h",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "url": "http://{$PRUSA_EXPORTER_HOST}:{$PRUSA_EXPORTER_PORT}/metrics/prusalink",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "raw"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "699a486f38764605932f93df0b3351d9",
+                                "expression": "nodata(/Prusa by Prom/prusa_exporter.get,30m)=1",
+                                "name": "prusa_exporter is not available",
+                                "event_name": "prusa_exporter is not available (or no data for 30m)",
+                                "priority": "WARNING",
+                                "description": "Failed to fetch system metrics from prusa_exporter in time.",
+                                "manual_close": "YES",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "tags": [
+                    {
+                        "tag": "class",
+                        "value": "os"
+                    },
+                    {
+                        "tag": "target",
+                        "value": "linux"
+                    }
+                ],
+                "macros": [
+                    {
+                        "macro": "{$PRUSA_EXPORTER_HOST}",
+                        "value": "localhost",
+                        "description": "The hostname or IP address of the node_exporter host."
+                    },
+                    {
+                        "macro": "{$PRUSA_EXPORTER_PORT}",
+                        "value": "10009",
+                        "description": "TCP Port node_exporter is listening on."
+                    }
+                ],
+                "dashboards": [
+                    {
+                        "uuid": "9ee344bfde8e4222b867940155454737",
+                        "name": "Prusa printer",
+                        "pages": [
+                            {
+                                "name": "Overview",
+                                "widgets": [
+                                    {
+                                        "type": "item",
+                                        "name": "Printer name",
+                                        "width": "23",
+                                        "fields": [
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.name"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_color",
+                                                "value": "FF8000"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "item",
+                                        "name": "Job name",
+                                        "y": "2",
+                                        "width": "50",
+                                        "fields": [
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "decimal_places",
+                                                "value": "0"
+                                            },
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.printer.job.name"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "units_color",
+                                                "value": "00FF00"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "honeycomb",
+                                        "name": "Temparature",
+                                        "y": "4",
+                                        "width": "10",
+                                        "height": "8",
+                                        "fields": [
+                                            {
+                                                "type": "STRING",
+                                                "name": "bg_color",
+                                                "value": "FF8000"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "items.0",
+                                                "value": "Bed temperature"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "items.1",
+                                                "value": "Nozzle temperature"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "reference",
+                                                "value": "NMUQU"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "svggraph",
+                                        "name": "Temperature Nozzle",
+                                        "x": "10",
+                                        "y": "4",
+                                        "width": "40",
+                                        "height": "4",
+                                        "fields": [
+                                            {
+                                                "type": "STRING",
+                                                "name": "ds.0.color",
+                                                "value": "00FF00"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "ds.0.fill",
+                                                "value": "0"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "ds.0.items.0",
+                                                "value": "Nozzle temperature"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "ds.1.color",
+                                                "value": "FF465C"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "ds.1.items.0",
+                                                "value": "Nozzle target temperature"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "ds.1.type",
+                                                "value": "1"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "reference",
+                                                "value": "ZLVYU"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "righty",
+                                                "value": "0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "svggraph",
+                                        "name": "Temperature Bed",
+                                        "x": "10",
+                                        "y": "8",
+                                        "width": "40",
+                                        "height": "4",
+                                        "fields": [
+                                            {
+                                                "type": "STRING",
+                                                "name": "ds.0.color",
+                                                "value": "00FF00"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "ds.0.fill",
+                                                "value": "0"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "ds.0.items.0",
+                                                "value": "Bed temperature"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "ds.1.color",
+                                                "value": "FF465C"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "ds.1.items.0",
+                                                "value": "Bed target temperature"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "ds.1.type",
+                                                "value": "1"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "reference",
+                                                "value": "YFQOW"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "righty",
+                                                "value": "0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "item",
+                                        "name": "Printer model",
+                                        "x": "23",
+                                        "width": "9",
+                                        "fields": [
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.model"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "item",
+                                        "name": "Filament",
+                                        "x": "32",
+                                        "width": "9",
+                                        "fields": [
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.material.info.filament"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "item",
+                                        "name": "Progress",
+                                        "x": "41",
+                                        "width": "9",
+                                        "fields": [
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "decimal_places",
+                                                "value": "0"
+                                            },
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.printing.progress.ratio"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "units_color",
+                                                "value": "00FF00"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "item",
+                                        "name": "Print time",
+                                        "x": "50",
+                                        "width": "22",
+                                        "fields": [
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "decimal_places",
+                                                "value": "0"
+                                            },
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.print.time"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "units_color",
+                                                "value": "00FF00"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "item",
+                                        "name": "Status",
+                                        "x": "50",
+                                        "y": "2",
+                                        "width": "22",
+                                        "fields": [
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.status.state"
+                                                }
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "honeycomb",
+                                        "name": "Funs",
+                                        "x": "50",
+                                        "y": "4",
+                                        "width": "11",
+                                        "height": "4",
+                                        "fields": [
+                                            {
+                                                "type": "STRING",
+                                                "name": "bg_color",
+                                                "value": "4000FF"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "items.0",
+                                                "value": "Extruder fan speed"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "items.1",
+                                                "value": "Fan speed"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "reference",
+                                                "value": "RRUFQ"
+                                            },
+                                            {
+                                                "type": "INTEGER",
+                                                "name": "show.0",
+                                                "value": "2"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "gauge",
+                                        "name": "Flow",
+                                        "x": "50",
+                                        "y": "8",
+                                        "width": "11",
+                                        "height": "4",
+                                        "fields": [
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.print.flow.ratio"
+                                                }
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "max",
+                                                "value": "100"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "min",
+                                                "value": "0"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_arc_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "gauge",
+                                        "name": "Progress",
+                                        "x": "61",
+                                        "y": "4",
+                                        "width": "11",
+                                        "height": "4",
+                                        "fields": [
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.printing.progress.ratio"
+                                                }
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "max",
+                                                "value": "100"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "min",
+                                                "value": "0"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_arc_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "gauge",
+                                        "name": "Spped",
+                                        "x": "61",
+                                        "y": "8",
+                                        "width": "11",
+                                        "height": "4",
+                                        "fields": [
+                                            {
+                                                "type": "ITEM",
+                                                "name": "itemid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "key": "prusa.print.speed.ratio"
+                                                }
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "max",
+                                                "value": "100"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "min",
+                                                "value": "0"
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "value_arc_color",
+                                                "value": "00FF00"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Graphs",
+                                "widgets": [
+                                    {
+                                        "type": "graph",
+                                        "width": "36",
+                                        "height": "5",
+                                        "fields": [
+                                            {
+                                                "type": "GRAPH",
+                                                "name": "graphid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "name": "Temperature Nozzle"
+                                                }
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "reference",
+                                                "value": "FEXRG"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "graph",
+                                        "y": "5",
+                                        "width": "72",
+                                        "height": "5",
+                                        "fields": [
+                                            {
+                                                "type": "GRAPH",
+                                                "name": "graphid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "name": "Fans"
+                                                }
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "reference",
+                                                "value": "IKYYQ"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "graph",
+                                        "x": "36",
+                                        "width": "36",
+                                        "height": "5",
+                                        "fields": [
+                                            {
+                                                "type": "GRAPH",
+                                                "name": "graphid.0",
+                                                "value": {
+                                                    "host": "Prusa by Prom",
+                                                    "name": "Temperature Bed"
+                                                }
+                                            },
+                                            {
+                                                "type": "STRING",
+                                                "name": "reference",
+                                                "value": "FMLOD"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "valuemaps": [
+                    {
+                        "uuid": "39b1b635c116440eb59c807b31bc0ade",
+                        "name": "Filament PLA Load",
+                        "mappings": [
+                            {
+                                "value": "1",
+                                "newvalue": "Yes"
+                            },
+                            {
+                                "value": "0",
+                                "newvalue": "No"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "cfd1383db3414aec9c7c4275656bcca7",
+                        "name": "Status mmu",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "Disable"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "Enable"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "8bae740bc9d3491aa9d82f45b2132d27",
+                        "name": "Status printer",
+                        "mappings": [
+                            {
+                                "value": "1",
+                                "newvalue": "Up"
+                            },
+                            {
+                                "value": "0",
+                                "newvalue": "Down"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "graphs": [
+            {
+                "uuid": "316f07dc2ec248b9ae169e3e359a26cf",
+                "name": "Fans",
+                "graph_items": [
+                    {
+                        "drawtype": "GRADIENT_LINE",
+                        "color": "BF00FF",
+                        "calc_fnc": "ALL",
+                        "item": {
+                            "host": "Prusa by Prom",
+                            "key": "prusa.fan.speed.hotend"
+                        }
+                    },
+                    {
+                        "sortorder": "1",
+                        "drawtype": "GRADIENT_LINE",
+                        "color": "0040FF",
+                        "calc_fnc": "ALL",
+                        "item": {
+                            "host": "Prusa by Prom",
+                            "key": "prusa.fan.speed.print"
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "0307f0d65ed543cd94b0072ead5a6330",
+                "name": "Temperature Bed",
+                "graph_items": [
+                    {
+                        "drawtype": "GRADIENT_LINE",
+                        "color": "0040FF",
+                        "calc_fnc": "ALL",
+                        "item": {
+                            "host": "Prusa by Prom",
+                            "key": "prusa.bed.temp"
+                        }
+                    },
+                    {
+                        "sortorder": "1",
+                        "drawtype": "DOTTED_LINE",
+                        "color": "F63100",
+                        "calc_fnc": "ALL",
+                        "item": {
+                            "host": "Prusa by Prom",
+                            "key": "prusa.bed.target.temp"
+                        }
+                    }
+                ]
+            },
+            {
+                "uuid": "de952eb6ed924b5a975b10d35b707c5f",
+                "name": "Temperature Nozzle",
+                "graph_items": [
+                    {
+                        "drawtype": "GRADIENT_LINE",
+                        "color": "0040FF",
+                        "calc_fnc": "ALL",
+                        "item": {
+                            "host": "Prusa by Prom",
+                            "key": "prusa.nozzle.temp"
+                        }
+                    },
+                    {
+                        "sortorder": "1",
+                        "drawtype": "DOTTED_LINE",
+                        "color": "F63100",
+                        "calc_fnc": "ALL",
+                        "item": {
+                            "host": "Prusa by Prom",
+                            "key": "prusa.nozzle.target.temp"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
